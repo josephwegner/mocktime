@@ -1,0 +1,38 @@
+extends layout
+
+block content
+  h1="MockTime"
+  h2="Equation Builder"
+  div(ng-controller='IndexCtrl')
+    form
+        label(for='xAxis')="X Axis Label:"
+        input(name='xAxis', id='xAxis', type='text', ng-model='eq.x')
+        br
+        label(for='yAxis')="Y Axis Label:"
+        input(name='yAxis', id='yAxis', type='text', ng-model='eq.y')
+        br
+        span
+            | When {{eq.x}} increases by 
+            input(name='rate', id='rate', type='number', ng-model='eq.rate')
+            | :
+        br
+        ul(id='actions')
+            li(ng-repeat="action in eq.actions", class='action')
+                select(ng-model='action.variable')
+                    option(value='y')="{{eq.y}}"
+                    option(value='x')="{{eq.x}}"
+                | should 
+                select(ng-model='action.operation')
+                    option(value='add')="increase"
+                    option(value='subtract')="decrease"
+                    option(value='multiply')="multiply"
+                    option(value='divide')="divide"
+                | by 
+                input(ng-model='action.value', type='number')
+                button(ng-click='newAction();', ng-show="$last")="+"
+
+    h2="Output"
+    span
+        | When {{eq.x}} is 
+        input(ng-model="comp.x", type="number")
+        | {{eq.y}} will be {{compute();}}

@@ -1,0 +1,5 @@
+{"ts":1353172979629,"silentsave":true,"restoring":false,"patch":[[]],"length":0}
+{"contributors":[],"silentsave":true,"ts":1353172981185,"patch":[[{"diffs":[[1,"no"]],"start1":0,"start2":0,"length1":0,"length2":2}]],"length":2,"saved":false}
+{"ts":1353172983962,"patch":[[{"diffs":[[0,"no"],[1,"de_module"]],"start1":0,"start2":0,"length1":2,"length2":11}]],"length":11,"saved":false}
+{"ts":1353172985423,"patch":[[{"diffs":[[0,"e_module"],[1,"s"]],"start1":3,"start2":3,"length1":8,"length2":9}]],"length":12,"saved":false}
+{"ts":1353172986991,"patch":[[{"diffs":[[0,"_modules"],[1,"/"]],"start1":4,"start2":4,"length1":8,"length2":9}]],"length":13,"saved":false}
