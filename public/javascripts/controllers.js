@@ -1,12 +1,22 @@
 function IndexCtrl($scope) {
     
     $scope.eq = {
-        x: 'x',
-        y: 'y',
+        x: {
+            name: 'x',
+            init: 1,
+            value: 1
+        },
+        dependents: [
+            {
+                name: 'y',
+                init: 1,
+                value: 1
+            }
+        ],
         rate: 1,
         actions: [
             {
-                variable: 'y',
+                variable: 0,
                 operation: 'add',
                 value: 1
             }
@@ -19,14 +29,25 @@ function IndexCtrl($scope) {
     
     $scope.newAction = function() {
       $scope.eq.actions.push({
-        variable: 'x',
+        variable: 0,
         operation: 'add',
         value: 1
       });
+    };    
+    
+    $scope.newDependent = function() {
+      $scope.eq.dependents.push({
+            name: 'y',
+            init: 1,
+            value: 1
+        });
     };
  
     $scope.compute = function() {
-        var ret = 0;
+        console.log($scope);
+        for(var i=0, max=$scope.eq.dependents.length ; i<max; i++) {
+            $scope.eq.dependents[i].value = $scope.eq.dependents[i].init;   
+        }
         
         for(var j=0; j<$scope.comp.x; j++) {           
             for(var i=0, max=$scope.eq.actions.length; i<max; i++) {
@@ -53,12 +74,11 @@ function IndexCtrl($scope) {
                         break;
                 }
                 
-                ret = operation(ret, action.value);
+                $scope.eq.dependents[action.variable].value = operation($scope.eq.dependents[action.variable].value, action.value);
                 
             }
         }
-        
-        return ret;
+        return "";
     };
 }
 
