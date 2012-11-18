@@ -48,7 +48,7 @@ function IndexCtrl($scope, $location) {
         var eq = JSON.stringify($scope.eq);
         var comp = JSON.stringify($scope.comp);
         
-        var url = "http://mocktime.com/#?eq=" + encodeURIComponent(eq) + "&comp=" + encodeURIComponent(comp);
+        var url = "http://www.mocktime.com/#?eq=" + encodeURIComponent(eq) + "&comp=" + encodeURIComponent(comp);
         
         return url;
     }
