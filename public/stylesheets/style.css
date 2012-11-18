@@ -164,9 +164,8 @@ button.littleBox {
     color: #362f4a;
     font-size: 30px;
     cursor: pointer;
-    margin-left: -15px;
-    margin-top: -30px;
-    padding: 20px 0 0 15px;
+    margin-left: -5px;
+    margin-top: -10px;
     position: relative;
     top: 7px;
 }

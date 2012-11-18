@@ -128,15 +128,19 @@ function IndexCtrl($scope, $location) {
         var total = 0;
         
         for(var i=0, max=$scope.eq.dependents.length ; i<max; i++) {
-            total += $scope.eq.dependents[i].value;  
+            total += $scope.eq.dependents[i].value > 0 ? $scope.eq.dependents[i].value : 0; 
             
             var step = 360 / $scope.eq.dependents.length;
-            console.log("Hue is: ", step * i, step, i);
+
             $scope.eq.dependents[i].color = hsv2rgb({hue: step * i, sat: 80, val: 80});
         }
         
         for(var i=0, max=$scope.eq.dependents.length ; i<max; i++) {
             $scope.eq.dependents[i].percent = Math.floor(($scope.eq.dependents[i].value / total) * 10000) / 100;   
+            
+            if($scope.eq.dependents[i].percent < 0) {
+                $scope.eq.dependents[i].percent = 0;   
+            }
         }
         
         return "";
