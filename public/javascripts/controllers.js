@@ -83,13 +83,13 @@ function IndexCtrl($scope, $location) {
  
     $scope.compute = function() {
         
-        console.log($scope.comp);
-        
         for(var i=0, max=$scope.eq.dependents.length ; i<max; i++) {
             $scope.eq.dependents[i].value = $scope.eq.dependents[i].init;   
         }
         
-        for(var j=0; j<$scope.comp.x; j++) {           
+        var doTimes = $scope.comp.x / $scope.eq.rate;
+        
+        for(var j=0; j<doTimes; j++) {           
             for(var i=0, max=$scope.eq.actions.length; i<max; i++) {
                 var action = $scope.eq.actions[i];
                 
