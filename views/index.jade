@@ -56,7 +56,7 @@ block content
             div(class="clear")
         div(class="varBox", ng-repeat="variable in eq.dependents")
             div(class='varName', style="background-color: {{variable.color}}")
-                span="{{variable.name}} {{variable.percent}}%"
+                span="{{variable.name}}"
             div(class='varVal')
                 span="{{variable.value}}{{compute();}}"
         div(class="clear")

@@ -597,3 +597,4 @@
 {"ts":1353248710063,"patch":[[{"diffs":[[0,"       |"],[1," "],[0,"{{variab"]],"start1":2277,"start2":2277,"length1":16,"length2":17}]],"length":2662,"saved":false}
 {"ts":1353248740566,"patch":[[{"diffs":[[0,"        "],[-1,"| "],[1,"span=\""],[0,"{{variab"]],"start1":2276,"start2":2276,"length1":18,"length2":22}]],"length":2666,"saved":false}
 {"ts":1353248742900,"patch":[[{"diffs":[[0,"rcent}}%"],[1,"\""],[0,"\n       "]],"start1":2303,"start2":2303,"length1":16,"length2":17}]],"length":2667,"saved":false}
+{"ts":1353249044498,"patch":[[{"diffs":[[0,"e.name}}"],[-1," {{variable.percent}}%"],[0,"\"\n      "]],"start1":2521,"start2":2521,"length1":38,"length2":16}]],"length":2645,"saved":false}
