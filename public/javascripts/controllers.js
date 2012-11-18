@@ -8,6 +8,7 @@ function IndexCtrl($scope) {
         },
         dependents: [
             {
+                index: 0,
                 name: 'y',
                 init: 1,
                 value: 1
@@ -16,6 +17,8 @@ function IndexCtrl($scope) {
         rate: 1,
         actions: [
             {
+                type: "number",
+                byVar: 0,
                 variable: 0,
                 operation: 'add',
                 value: 1
@@ -27,8 +30,33 @@ function IndexCtrl($scope) {
         x: 1
     }
     
+    $("#xSlider").slider({
+        value: $scope.comp.x,
+        step: $scope.eq.rate,
+        range: "min",
+        min: 0,
+        max: 100,
+        slide: function(event, ui) {
+            $scope.$apply(function() {
+                $scope.comp.x = ui.value;
+                $scope.compute();
+            });
+        }
+    });
+    
+    $scope.resetRate = function() {
+        $scope.comp.x = $scope.eq.rate;
+        var max = (($scope.eq.rate * 100) > 100) ? $scope.eq.rate * 100 : 100;
+        $("#xSlider").slider("option", "step", $scope.eq.rate);
+        $("#xSlider").slider("option", "value", $scope.comp.x);
+        $("#xSlider").slider("option", "max", max);
+        $scope.compute();
+    };
+    
     $scope.newAction = function() {
       $scope.eq.actions.push({
+        type: "number",
+        byVar: 0,
         variable: 0,
         operation: 'add',
         value: 1
@@ -37,6 +65,7 @@ function IndexCtrl($scope) {
     
     $scope.newDependent = function() {
       $scope.eq.dependents.push({
+            index: $scope.eq.dependents.length,
             name: 'y',
             init: 1,
             value: 1
@@ -44,7 +73,7 @@ function IndexCtrl($scope) {
     };
  
     $scope.compute = function() {
-        console.log($scope);
+        
         for(var i=0, max=$scope.eq.dependents.length ; i<max; i++) {
             $scope.eq.dependents[i].value = $scope.eq.dependents[i].init;   
         }
@@ -74,10 +103,13 @@ function IndexCtrl($scope) {
                         break;
                 }
                 
-                $scope.eq.dependents[action.variable].value = operation($scope.eq.dependents[action.variable].value, action.value);
+                var secNum = action.byVar === null ? action.value : $scope.eq.dependents[action.byVar].value;
+
+                $scope.eq.dependents[action.variable].value = operation($scope.eq.dependents[action.variable].value, secNum);
                 
             }
         }
+        
         return "";
     };
 }

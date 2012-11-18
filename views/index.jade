@@ -1,45 +1,55 @@
 extends layout
 
 block content
-  h1="MockTime"
-  h2="Equation Builder"
-  div(ng-controller='IndexCtrl')
-    form
-        span
-            | The independent variable
-            input(type='text', ng-model='eq.x.name')
-            | starts at 
-            input(type='number', ng-model='eq.x.init')
-        br
-        span="Dependent Variables:"
-        ul(id='dependents')
-            li(ng-repeat='variable in eq.dependents')
+  div(ng-controller='IndexCtrl', id="wrap")
+    h2="Equation Builder"
+    form("class="content")
+        h3="Independent Variable"
+        div(class='varBox')
+            div(class='varName')
+                input(type='text', ng-model='eq.x.name')
+            div(class='varVal')
+                input(type='number', ng-model='eq.x.init')
+        div(class="clear")
+        hr
+        h3="Dependent Variables"
+        div(class="varBox", ng-repeat="variable in eq.dependents")
+            div(class='varName')
                 input(type='text', ng-model='variable.name')
-                | starts at 
+            div(class='varVal')
                 input(type='number', ng-model='variable.init')
-                button(ng-click='newDependent();', ng-show="$last")="+"
+        button(ng-click='newDependent();', class="box")="+"
+        div(class="clear")
+        hr
         span
             | When {{eq.x.name}} increases by 
-            input(name='rate', id='rate', type='number', ng-model='eq.rate')
-            | :
+            input(name='rate', id='rate', type='number', ng-model='eq.rate', class="number", ng-change="resetRate();")
         br
         ul(id='actions')
             li(ng-repeat="action in eq.actions", class='action')
-                select(ng-model='action.variable', ng-options="$index as d.name for d in eq.dependents")
-                | should {{action.variable}}
+                select(ng-model='action.variable', ng-options="d.index as d.name for d in eq.dependents")
+                | should
                 select(ng-model='action.operation')
                     option(value='add')="increase"
                     option(value='subtract')="decrease"
                     option(value='multiply')="multiply"
                     option(value='divide')="divide"
-                | by 
-                input(ng-model='action.value', type='number')
+                | by   
+                select(ng-model='action.byVar', ng-options="d.index as d.name for d in eq.dependents")
+                    option(value='')="Custom Number"
+                input(ng-model='action.value', type='number', ng-show="action.byVar == null", class="number")
                 button(ng-click='newAction();', ng-show="$last")="+"
 
     h2="Output"
-    span
-        | When {{eq.x.name}} is 
-        input(ng-model="comp.x", type="number", class="{{compute();}}")
-    ul(id='results')
-        li(ng-repeat='variable in eq.dependents')
-            {{variable.name}} is {{variable.value}}
+    div(class="content", id="results")
+        span="{{eq.x.name}} is {{comp.x}}"
+        br
+        div(id="xSlider")
+        br
+        br
+        div(class="varBox", ng-repeat="variable in eq.dependents")
+            div(class='varName')
+                span="{{variable.name}}"
+            div(class='varVal')
+                span="{{variable.value}}{{compute();}}"
+        div(class="clear")
