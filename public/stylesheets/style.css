@@ -125,6 +125,22 @@ ul {
     min-width: 92px;   
 }
 
+#percents {
+    height: 50px;
+    width: 90%;
+}
+
+#percents .valPercent {
+    height: 100%;
+    float: left; 
+}
+
+#percents .valPercent span {
+    display: block;
+    margin-top: 14px;
+    text-align: center;
+    color: white;   
+}
 
 button.box {
     float: left;  

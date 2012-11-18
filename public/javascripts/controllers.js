@@ -11,7 +11,9 @@ function IndexCtrl($scope, $location) {
                 index: 0,
                 name: 'y',
                 init: 1,
-                value: 1
+                value: 1,
+                percent: 100,
+                color: "#ecb484"
             }
         ],
         rate: 1,
@@ -77,7 +79,9 @@ function IndexCtrl($scope, $location) {
             index: $scope.eq.dependents.length,
             name: 'y',
             init: 1,
-            value: 1
+            value: 1,
+            percent: 0,
+            color: "#ecb484"
         });
     };
  
@@ -121,6 +125,20 @@ function IndexCtrl($scope, $location) {
             }
         }
         
+        var total = 0;
+        
+        for(var i=0, max=$scope.eq.dependents.length ; i<max; i++) {
+            total += $scope.eq.dependents[i].value;  
+            
+            var step = 360 / $scope.eq.dependents.length;
+            console.log("Hue is: ", step * i, step, i);
+            $scope.eq.dependents[i].color = hsv2rgb({hue: step * i, sat: 80, val: 80});
+        }
+        
+        for(var i=0, max=$scope.eq.dependents.length ; i<max; i++) {
+            $scope.eq.dependents[i].percent = Math.floor(($scope.eq.dependents[i].value / total) * 10000) / 100;   
+        }
+        
         return "";
     };
     
@@ -162,4 +180,37 @@ function computeDivide(pre, val) {
     return pre / val;
 }
     
-    
+var hsv2rgb = function(hsv) {
+  var h = hsv.hue, s = hsv.sat, v = hsv.val;
+  var rgb, i, data = [];
+  if (s === 0) {
+    rgb = [v,v,v];
+  } else {
+    h = h / 60;
+    i = Math.floor(h);
+    data = [v*(1-s), v*(1-s*(h-i)), v*(1-s*(1-(h-i)))];
+    switch(i) {
+      case 0:
+        rgb = [v, data[2], data[0]];
+        break;
+      case 1:
+        rgb = [data[1], v, data[0]];
+        break;
+      case 2:
+        rgb = [data[0], v, data[2]];
+        break;
+      case 3:
+        rgb = [data[0], data[1], v];
+        break;
+      case 4:
+        rgb = [data[2], data[0], v];
+        break;
+      default:
+        rgb = [v, data[0], data[1]];
+        break;
+    }
+  }
+  return '#' + rgb.map(function(x){ 
+    return ("0" + Math.round(x*255).toString(16)).slice(-2);
+  }).join('');
+};

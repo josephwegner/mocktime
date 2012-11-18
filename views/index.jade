@@ -50,9 +50,13 @@ block content
         div(id="xSlider")
         br
         br
+        div(id="percents")
+            div(ng-repeat="variable in eq.dependents", class="valPercent", style="width: {{variable.percent}}%; background-color: {{variable.color}};")
+                span="{{variable.percent}}%"
+            div(class="clear")
         div(class="varBox", ng-repeat="variable in eq.dependents")
-            div(class='varName')
-                span="{{variable.name}}"
+            div(class='varName', style="background-color: {{variable.color}}")
+                span="{{variable.name}} {{variable.percent}}%"
             div(class='varVal')
                 span="{{variable.value}}{{compute();}}"
         div(class="clear")
