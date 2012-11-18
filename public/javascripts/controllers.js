@@ -1,4 +1,4 @@
-function IndexCtrl($scope) {
+function IndexCtrl($scope, $location) {
     
     $scope.eq = {
         x: {
@@ -44,6 +44,15 @@ function IndexCtrl($scope) {
         }
     });
     
+    $scope.getShareURL = function() {
+        var eq = JSON.stringify($scope.eq);
+        var comp = JSON.stringify($scope.comp);
+        
+        var url = "http://mocktime.com/#?eq=" + encodeURIComponent(eq) + "&comp=" + encodeURIComponent(comp);
+        
+        return url;
+    }
+    
     $scope.resetRate = function() {
         $scope.comp.x = $scope.eq.rate;
         var max = (($scope.eq.rate * 100) > 100) ? $scope.eq.rate * 100 : 100;
@@ -73,6 +82,8 @@ function IndexCtrl($scope) {
     };
  
     $scope.compute = function() {
+        
+        console.log($scope.comp);
         
         for(var i=0, max=$scope.eq.dependents.length ; i<max; i++) {
             $scope.eq.dependents[i].value = $scope.eq.dependents[i].init;   
@@ -112,6 +123,30 @@ function IndexCtrl($scope) {
         
         return "";
     };
+    
+        
+    var queries = $location.search();
+    
+    if(typeof(queries.eq) !== "undefined" && typeof(queries.comp) !== "undefined") {
+
+        try {
+            var eq = JSON.parse(queries.eq);
+            var comp = JSON.parse(queries.comp);
+        } catch(err) {
+            console.log("Query parameters set, but not valid JSON", err);   
+            return false;
+        }
+
+        $scope.eq = eq;
+        $scope.comp = comp;
+        
+        
+        var max = (($scope.eq.rate * 100) > 100) ? $scope.eq.rate * 100 : 100;
+        $("#xSlider").slider("option", "step", $scope.eq.rate);
+        $("#xSlider").slider("option", "value", $scope.comp.x);
+        $("#xSlider").slider("option", "max", max);
+        $scope.compute();
+    }
 }
 
 function computeAdd(pre, val) {

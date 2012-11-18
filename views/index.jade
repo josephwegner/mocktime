@@ -2,6 +2,9 @@ extends layout
 
 block content
   div(ng-controller='IndexCtrl', id="wrap")
+    label="Share Url:"
+    br
+    input(type="text", value="{{getShareURL()}}")
     h2="Equation Builder"
     form("class="content")
         h3="Independent Variable"
@@ -38,7 +41,7 @@ block content
                 select(ng-model='action.byVar', ng-options="d.index as d.name for d in eq.dependents")
                     option(value='')="Custom Number"
                 input(ng-model='action.value', type='number', ng-show="action.byVar == null", class="number")
-                button(ng-click='newAction();', ng-show="$last")="+"
+                button(ng-click='newAction();', ng-show="$last", class="littleBox")="+"
 
     h2="Output"
     div(class="content", id="results")

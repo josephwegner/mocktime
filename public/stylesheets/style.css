@@ -142,7 +142,25 @@ button.box:hover {
     padding: 17px 0 0 13px;
 }
 
+button.littleBox {
+    border: none;
+    background-color: transparent;
+    color: #362f4a;
+    font-size: 30px;
+    cursor: pointer;
+    margin-left: -20px;
+    margin-top: -30px;
+    padding: 20px 0 0 15px;
+    position: relative;
+    top: 7px;
+}
 
+button.littleBox:hover {
+    margin-top: -35px;
+    font-size: 35px;
+    top: 8px;
+    left: -2px;
+}
 
 /** Jquery UI Overrides **/
 
