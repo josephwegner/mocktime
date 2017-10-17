@@ -1,3 +1,5 @@
+angular.module('ngAppMockTime', [])
+
 function IndexCtrl($scope, $location) {
     
     $scope.eq = {
