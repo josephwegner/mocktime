@@ -1,0 +1,61 @@
+extends layout
+
+block content
+  div(ng-controller='IndexCtrl', id="wrap")
+    label="Share Url:"
+    br
+    input(type="text", value="{{getShareURL()}}")
+    h2="Equation Builder"
+    form(class="content")
+        h3="Independent Variable"
+        div(class='varBox')
+            div(class='varName')
+                input(type='text', ng-model='eq.x.name')
+            div(class='varVal')
+                input(type='number', ng-model='eq.x.init')
+        div(class="clear")
+        hr
+        h3="Dependent Variables"
+        div(class="varBox", ng-repeat="variable in eq.dependents")
+            div(class='varName')
+                input(type='text', ng-model='variable.name')
+            div(class='varVal')
+                input(type='number', ng-model='variable.init')
+        button(ng-click='newDependent();', class="box")="+"
+        div(class="clear")
+        hr
+        span
+            | When {{eq.x.name}} increases by 
+            input(name='rate', id='rate', type='number', ng-model='eq.rate', class="number", ng-change="resetRate();")
+        br
+        ul(id='actions')
+            li(ng-repeat="action in eq.actions", class='action')
+                select(ng-model='action.variable', ng-options="d.index as d.name for d in eq.dependents")
+                | should
+                select(ng-model='action.operation')
+                    option(value='add')="increase"
+                    option(value='subtract')="decrease"
+                    option(value='multiply')="multiply"
+                    option(value='divide')="divide"
+                | by   
+                select(ng-model='action.byVar', ng-options="d.index as d.name for d in eq.dependents")
+                    option(value='')="Custom Number"
+                input(ng-model='action.value', type='number', ng-show="action.byVar == null", class="number")
+                button(ng-click='newAction();', ng-show="$last", class="littleBox")="+"
+
+    h2="Output"
+    div(class="content", id="results")
+        span(id="depIs")="{{eq.x.name}} is {{comp.x}}"
+        div(id="xSlider")
+        br
+        br
+        div(id="percents")
+            div(ng-repeat="variable in eq.dependents", class="valPercent", style="width: {{variable.percent}}%; background-color: {{variable.color}};")
+                span="{{variable.percent}}%"
+            div(class="clear")
+        div(class="varBox", ng-repeat="variable in eq.dependents")
+            div(class='varName', style="background-color: {{variable.color}}")
+                span="{{variable.name}}"
+            div(class='varVal')
+                span="{{variable.value}}{{compute();}}"
+        div(class="clear")
